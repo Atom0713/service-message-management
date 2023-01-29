@@ -24,6 +24,16 @@ service-message-management
 |       |   int
 ```
 
+**Requirements**
+
+Python == ^3.10
+
+**Manage dependencies**
+
+We are using [poetry](https://python-poetry.org/) for dependency management.
+
+To install run command `pip install poetry==1.3.2`.
+
 
 **Run**
 

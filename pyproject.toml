@@ -1,0 +1,15 @@
+[tool.poetry]
+name = "service-message-management"
+version = "0.1.0"
+description = "Service for sending and retrieving messages"
+authors = ["Atom0713 <sliusarenko.artem@gmail.com>"]
+readme = "README.md"
+packages = [{include = "service_message_management"}]
+
+[tool.poetry.dependencies]
+python = "^3.10"
+
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
