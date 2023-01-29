@@ -2,6 +2,7 @@ from flask import Blueprint
 
 bp = Blueprint("message", __name__)
 
-@bp.route('/')
+
+@bp.route("/")
 def hello():
-    return {'status': 'OK'}
+    return {"status": "OK"}
