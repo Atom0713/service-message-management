@@ -37,5 +37,16 @@ To install run command `pip install poetry==1.3.2`.
 
 **Run**
 
+You can run the application using `poetry run flask run` and poetry will take care of the virtual environment for you.
+
+If you prefere to have local virtual env:
+- activate your virtual environment
+- run `poetry install` and it will install dependencies from poetry.lock to you virtual environment
+- run `flask run` to start the server
+
+
+**Debugging**
+Run app in debug mode `flask --debug run`
+
 
 **Test**
