@@ -27,7 +27,9 @@ service-message-management
 
 ## Pre-requisites
 
-Python == ^3.10
+- Docker version 20.10.21
+- Python == ^3.10
+- [dynamodb-local](https://hub.docker.com/r/amazon/dynamodb-local)
 
 ## Manage dependencies
 
@@ -46,11 +48,12 @@ If you want to use your own virtual environment:
 
 ## Run
 
+Start local dynamodb docker container `docker run --rm -d -p 8000:8000 amazon/dynamodb-local`
+
 You can run the application using `flask run`. The server will run on [http://127.0.0.1:5000](http://127.0.0.1:5000) by default.
 
 
 ## Development
-
 ### Code formatting
 
 - Format imorts `isort .`

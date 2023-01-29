@@ -15,6 +15,10 @@ def create_app(test_config=None):
         # load the test config if passed in
         app.config.from_mapping(test_config)
 
+    from ..datastore import create_table
+
+    create_table()
+
     from .views import bp
 
     app.register_blueprint(bp)
