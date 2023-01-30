@@ -17,21 +17,17 @@ def remove_message(message_key: str) -> Dict:
 
     return {"status": "ok"}
 
+
 def batch_remove_message() -> Dict:
-    message_keys = request.get_json()['message_keys']
+    message_keys = request.get_json()["message_keys"]
 
     for message_key in message_keys:
         Message.delete(message_key)
 
     return {"status": "ok"}
 
+
 def retrieve_new_messages(recipient_email: str) -> Dict:
-    start, end = (request.args.get('start'),request.args.get('end') )
+    start, end = (request.args.get("start"), request.args.get("end"))
     messages = Message.fetch_new(recipient_email, start, end)
-    return {'recipient': recipient_email, 'messages': 
-    [
-        message["Attributes"]["message"]["S"]
-        for message in messages
-    ]}
-
-
+    return {"recipient": recipient_email, "messages": [message["Attributes"]["message"]["S"] for message in messages]}

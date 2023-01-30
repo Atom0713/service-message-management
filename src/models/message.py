@@ -1,7 +1,8 @@
 import uuid
-import botocore
 from datetime import datetime
-from typing import Dict, List, Optional
+from typing import Dict, Optional
+
+import botocore
 
 from ..datastore import TABLE_NAME, dynamodb_client
 
@@ -61,7 +62,7 @@ class Message:
             expression_attribute_values = {
                 **expression_attribute_values,
                 ":start_date": {"S": start},
-                ":end_date": {"S": end}
+                ":end_date": {"S": end},
             }
             print(filter_expression)
         messages = dynamodb_client.query(

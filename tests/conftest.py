@@ -52,7 +52,7 @@ def mock_aws_response() -> Iterator[None]:
 @pytest.fixture()
 def mock_dynamodb(mock_aws_response):
     with moto_mock_dynamodb():
-        ## seed
+        # seed
 
         yield
 
