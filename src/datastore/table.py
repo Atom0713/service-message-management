@@ -1,16 +1,13 @@
-import boto3
-
-# import botocore.exceptions import ResourceInUseException
 import botocore
+from .dynamodb_client import db
 
-db = boto3.resource("dynamodb", endpoint_url="http://localhost:8000")
-
+TABLE_NAME = "dev-service-message-management"
 
 def create_table():
     try:
         # Create the DynamoDB table.
         table = db.create_table(
-            TableName="dev-service-message-management",
+            TableName=TABLE_NAME,
             KeySchema=[{"AttributeName": "pk", "KeyType": "HASH"}, {"AttributeName": "sk", "KeyType": "RANGE"}],
             AttributeDefinitions=[
                 {"AttributeName": "pk", "AttributeType": "S"},
