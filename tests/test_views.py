@@ -5,7 +5,7 @@ import pytest
     "request_method, expected_response_json",
     [("GET", {"message": "message"}), ("POST", {"status": "ok"}), ("DELETE", {"status": "ok"})],
 )
-def test_resolve_message(request_method, expected_response_json, client):
+def test_resolve_message(request_method, expected_response_json, client, mock_dynamodb):
     if request_method == "POST":
         response = client.post("/message/me")
     elif request_method == "DELETE":

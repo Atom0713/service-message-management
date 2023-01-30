@@ -10,6 +10,7 @@ packages = [{include = "service_message_management"}]
 python = "^3.10"
 flask = "^2.2.2"
 boto3 = "^1.26.59"
+moto = "^4.1.1"
 
 [tool.poetry.group.test]
 
