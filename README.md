@@ -86,4 +86,5 @@ Run tests `pytest`
 
 ### DELETE
 `/messages/<recipient_email>`
+
 `/messages/<message_key>`
