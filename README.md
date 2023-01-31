@@ -14,7 +14,12 @@ service-message-management
 └─── src
 │   │
 │   └─── datastore
-│   │
+│       |   dynamodb_client.py
+|       |   table.py
+│   └─── models
+|       |   __init__.py
+|       |   message.py
+|       |
 │   └─── service
 │       │   views.py
 │       │   controller.py
@@ -38,9 +43,7 @@ We are using [poetry](https://python-poetry.org/) for dependency management.
 To install run command `pip install poetry==1.3.2`.
 
 ## Note 
-You can let poetry handle virtual environemt and run all commands with `poetry run [commands]`
-
-exp. `poetry run pytest`
+You can let poetry handle virtual environemt and run all commands with `poetry run [commands]`. Make commands take advantage of that property.
 
 If you want to use your own virtual environment:
     - activate your virtual environment
@@ -48,27 +51,39 @@ If you want to use your own virtual environment:
 
 ## Run
 
-Start local dynamodb docker container `docker run --rm -d -p 8000:8000 amazon/dynamodb-local`
+1. Start local dynamodb docker container `make run_local_dynamodb`
 
-You can run the application using `flask run`. The server will run on [http://127.0.0.1:5000](http://127.0.0.1:5000) by default.
-
+2. You can run the application using `make run`. The server will run on [http://127.0.0.1:5000](http://127.0.0.1:5000) by default.
 
 ## Development
 ### Code formatting
 
-- Format imorts `isort .`
+- Format imports `make isort`
 
-- Code formatting `black .`
+- Code formatting `make black`
 ### Code statyc type/style checking 
 
-- Style check `flake8 .`
+- Style check `make flake8`
 
-- Type check `mypy .`
+- Type check `make mypy`
 
 
 ## Debugging
 
-Run app in debug mode `flask --debug run`
+Run app in debug mode `make run _debug`
 
 ## Test
 Run tests `pytest`
+
+## API Endpoints
+
+
+### GET
+`/messages/<recipient_email>?start=<date>&end=<date>`
+
+### POST
+`/message/<recipient_email>`
+
+### DELETE
+`/messages/<recipient_email>`
+`/messages/<message_key>`

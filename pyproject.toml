@@ -21,7 +21,7 @@ pytest = "^7.2.1"
 [tool.poetry.group.code_checks]
 
 [tool.poetry.group.code_checks.dependencies]
-mypy = "^0.991"
+mypy = "^0.941"
 flake8 = "^6.0.0"
 
 [tool.poetry.group.code_formatting]
@@ -37,8 +37,28 @@ build-backend = "poetry.core.masonry.api"
 [tool.black]
 line-length = 120
 target-version = ['py310']
+include = '\.pyi?$'
+exclude = '\.git/|\.mypy_cache/|\.venv/|\.pytest_cache/|\.vscode/|__pycahce__/'
 
 [tool.isort]
 profile = "black"
 line_length = 120
 src_paths = ["tests", "service"]
+skip = [".git", ".mypy_cache", ".venv", ".pytest_cache", ".vscode", "__pycache__"]
+
+[tool.mypy]
+ignore_missing_imports = true
+show_error_codes = true
+no_implicit_reexport = true
+no_implicit_optional = true
+strict_equality = true
+strict_optional = true
+check_untyped_defs = true
+disallow_incomplete_defs = true
+local_partial_types = true
+
+warn_unused_configs = true
+warn_redundant_casts = true
+warn_unused_ignores = true
+warn_return_any = true
+warn_unreachable = true

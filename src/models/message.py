@@ -1,7 +1,8 @@
 import uuid
-import botocore
 from datetime import datetime
 from typing import Dict, List, Optional
+
+import botocore
 
 from ..datastore import TABLE_NAME, dynamodb_client
 
@@ -24,7 +25,6 @@ class Message:
 
     def save(self):
         self._before_save()
-        print(self.sk)
         return dynamodb_client.put_item(
             TableName=TABLE_NAME,
             Item={
@@ -49,7 +49,7 @@ class Message:
         )
 
     @staticmethod
-    def fetch_new(recipient_email: str, start: Optional[str], end: Optional[str]) -> Optional[Dict]:
+    def fetch_new(recipient_email: str, start: Optional[str], end: Optional[str]) -> List[Optional[Dict]]:
         filter_expression = "fetched = :current_state"
         expression_attribute_values = {
             ":current_state": {"BOOL": False},
@@ -61,7 +61,7 @@ class Message:
             expression_attribute_values = {
                 **expression_attribute_values,
                 ":start_date": {"S": start},
-                ":end_date": {"S": end}
+                ":end_date": {"S": end},
             }
             print(filter_expression)
         messages = dynamodb_client.query(
