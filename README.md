@@ -87,4 +87,10 @@ Run tests `pytest`
 ### DELETE
 `/messages/<recipient_email>`
 
-`/messages/<message_key>`
+`/message/<message_key>`
+
+---
+
+### /messages/<recipient_email>
+Sample request:
+`curl -X DELETE "http://localhost:5000/messages/<recipient_email>" -d '{'message_keys': [<message_key>]}' -H 'Content-Type: application/json'`
