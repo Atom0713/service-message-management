@@ -34,13 +34,13 @@ def mock_aws_response() -> Iterator[None]:
     class MockedAwsResponse(botocore.awsrequest.AWSResponse):
         raw_headers = {}  # type: ignore
 
-        def read(self):  # type: ignore
+        def read(self):
             return self.text.encode()
 
     botocore_old_aws_response = botocore.awsrequest.AWSResponse
     moto_old_aws_response = botocore.awsrequest.AWSResponse
 
-    botocore.awsrequest.AWSResponse = MockedAwsResponse  # type: ignore
+    botocore.awsrequest.AWSResponse = MockedAwsResponse
     moto.core.botocore_stubber.AWSResponse = MockedAwsResponse
 
     yield

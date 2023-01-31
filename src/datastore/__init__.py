@@ -7,7 +7,3 @@ __all__ = [
     "dynamodb_client",
     "delete_table",
 ]
-
-
-def seed_database():
-    pass

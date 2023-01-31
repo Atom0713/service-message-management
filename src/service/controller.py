@@ -1,6 +1,6 @@
 from typing import Dict
 
-from flask import request
+from flask import abort, request
 
 from ..models import Message
 
@@ -19,7 +19,10 @@ def remove_message(message_key: str) -> Dict:
 
 
 def batch_remove_message() -> Dict:
-    message_keys = request.get_json()["message_keys"]
+    request_json = request.get_json()
+    if not request_json:
+        abort(400, "Missing required attribute: message_keys.")
+    message_keys = request_json["message_keys"]
 
     for message_key in message_keys:
         Message.delete(message_key)

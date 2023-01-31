@@ -1,6 +1,9 @@
 run_local_dynamodb:
 	docker run --rm -d -p 8000:8000 amazon/dynamodb-local
 
+poetry-lock:
+	poetry lock
+
 poetry_install:
 	poetry install --no-root
 
