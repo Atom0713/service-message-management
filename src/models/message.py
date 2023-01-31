@@ -21,7 +21,7 @@ class Message:
         self.sk = f"{email}_{uuid.uuid4()}"
 
     def _before_save(self):
-        self.created_at = datetime.now().strftime("%Y/%m/%d, %H:%M:%S")
+        self.created_at = datetime.now().strftime("%Y/%m/%d %H:%M:%S")
 
     def save(self):
         self._before_save()
@@ -49,27 +49,17 @@ class Message:
         )
 
     @staticmethod
-    def fetch_new(recipient_email: str, start: Optional[str], end: Optional[str]) -> List[Optional[Dict]]:
-        filter_expression = "fetched = :current_state"
-        expression_attribute_values = {
-            ":current_state": {"BOOL": False},
-            ":sortkeyval": {"S": recipient_email},
-            ":primarykeyvalue": {"S": Message.pk},
-        }
-        if start and end:
-            filter_expression += " AND created_at >= :start_date AND created_at <= :end_date"
-            expression_attribute_values = {
-                **expression_attribute_values,
-                ":start_date": {"S": start},
-                ":end_date": {"S": end},
-            }
-            print(filter_expression)
+    def fetch_new(recipient_email: str) -> List[Optional[Dict]]:
         messages = dynamodb_client.query(
             TableName=TABLE_NAME,
             ConsistentRead=True,
             KeyConditionExpression="pk = :primarykeyvalue AND begins_with(sk, :sortkeyval)",
-            FilterExpression=filter_expression,
-            ExpressionAttributeValues=expression_attribute_values,
+            FilterExpression="fetched = :current_state",
+            ExpressionAttributeValues={
+                ":current_state": {"BOOL": False},
+                ":sortkeyval": {"S": recipient_email},
+                ":primarykeyvalue": {"S": Message.pk},
+            },
         )
 
         # Should be done in a transaction
@@ -94,3 +84,17 @@ class Message:
                 pass
 
         return collect_new_messages
+
+    @staticmethod
+    def fetch_all(recipient_email: str, start: str, end: str) -> Dict:
+        messages = dynamodb_client.query(
+            TableName=TABLE_NAME,
+            ConsistentRead=True,
+            KeyConditionExpression="pk = :primarykeyvalue AND begins_with(sk, :sortkeyval)",
+            ExpressionAttributeValues={
+                ":sortkeyval": {"S": recipient_email},
+                ":primarykeyvalue": {"S": Message.pk},
+            },
+        )
+
+        return messages
